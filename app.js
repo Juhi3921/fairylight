@@ -59,7 +59,6 @@
     return node;
   }
 
-  // --- Physics -------------------------------------------------------------
 
   function createBody(item, viewport) {
     var options = {

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fairylight — make things fly on your screen</title>
+    <meta
+      name="description"
+      content="A whimsical playground where stickers, notes and butterflies float, bounce and can be flung across the screen. Plain HTML, CSS and JavaScript."
+    />
+    <meta property="og:title" content="Fairylight — make things fly on your screen" />
+    <meta
+      property="og:description"
+      content="Drag, throw and shake a meadow full of floating butterflies. Built with real physics."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <img
+        class="backdrop"
+        src="./assets/meadow.jpg"
+        alt="A glowing wildflower meadow under a starry twilight sky"
+        width="1920"
+        height="1280"
+      />
+      <div class="veil"></div>
+
+      <!-- Every floating sticker/note is created by app.js inside this layer. -->
+      <div class="playground" id="playground" aria-hidden="true"></div>
+
+      <header class="intro">
+        <h1 class="title">Fairylight</h1>
+        <p class="tagline">a meadow of butterflies that never settles</p>
+      </header>
+
+      <div class="control-dock">
+        <button type="button" id="sound-toggle" class="pill" aria-pressed="false">sound off</button>
+        <button type="button" id="shake-toggle" class="pill" aria-pressed="false">
+          shake the world
+        </button>
+      </div>
+    </main>
+
+    <!-- Physics engine (UMD build exposes the global `Matter`). -->
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+    <script src="./sfx.js"></script>
+    <script src="./items.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

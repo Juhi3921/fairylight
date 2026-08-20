@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
 
@@ -59,6 +58,7 @@
     return node;
   }
 
+  // --- Physics -------------------------------------------------------------
 
   function createBody(item, viewport) {
     var options = {
@@ -266,19 +266,22 @@
     soundButton.title = soundOn ? "Turn sound effects off" : "Turn sound effects on";
   }
 
-  soundButton.addEventListener("click", function () {
+  function renderShakeButton() {
+    shakeButton.textContent = shaking ? "calm the world" : "shake the world";
+    shakeButton.setAttribute("aria-pressed", String(shaking));
+  }
+
+  function toggleSound() {
     soundOn = !soundOn;
     window.localStorage.setItem(SOUND_STORAGE_KEY, soundOn ? "on" : "off");
     renderSoundButton();
     if (soundOn) sfx.respawn();
-  });
-  renderSoundButton();
+  }
 
   /** Toggle a continuous snow-globe shake; toggling off calms everything down. */
-  shakeButton.addEventListener("click", function () {
+  function toggleShake() {
     shaking = !shaking;
-    shakeButton.textContent = shaking ? "calm the world" : "shake the world";
-    shakeButton.setAttribute("aria-pressed", String(shaking));
+    renderShakeButton();
     if (soundOn) sfx.shake(shaking);
 
     if (shaking) return;
@@ -290,5 +293,22 @@
       });
       Body.setAngularVelocity(entity.body, (Math.random() - 0.5) * 0.012);
     });
+  }
+
+  soundButton.addEventListener("click", toggleSound);
+  renderSoundButton();
+
+  shakeButton.addEventListener("click", toggleShake);
+
+  window.addEventListener("keydown", function (event) {
+    if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+    var key = event.key.toLowerCase();
+    if (key === "m") {
+      event.preventDefault();
+      toggleSound();
+    } else if (key === "s") {
+      event.preventDefault();
+      toggleShake();
+    }
   });
 })();
